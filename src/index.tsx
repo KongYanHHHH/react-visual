@@ -12,20 +12,20 @@ import { Spin } from 'antd';
 
 let root: ReactDOM.Root | null = null;
 function render(props: any) {
-    const { container, userInfo } = props;
+    const { container, userInfo, setGlobalState } = props;
     root =
         root ||
         ReactDOM.createRoot(
             container
-                ? container.querySelector('#microAppBox')
-                : document.querySelector('#microAppBox'),
+                ? container.querySelector('#visual')
+                : document.querySelector('#visual'),
         );
 
     root.render(
         <React.StrictMode>
             <Provider store={store}>
                 <PersistGate loading={<Spin />} persistor={persistor}>
-                    <App userInfo={userInfo} />
+                    <App userInfo={userInfo} setGlobalState={setGlobalState} />
                 </PersistGate>
             </Provider>
         </React.StrictMode>,

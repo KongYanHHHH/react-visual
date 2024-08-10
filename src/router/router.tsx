@@ -4,7 +4,6 @@ import AuthRoute from './authRoute';
 
 import Home from '../views/home';
 import Login from '../views/login';
-// import About from '../views/about';
 
 const About = lazy(() => import('../views/about'));
 

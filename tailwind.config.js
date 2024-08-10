@@ -8,6 +8,7 @@ module.exports = {
                 h88: '88%',
                 calcBorder: 'calc(100% - 6px)',
                 turnBorder: '110%',
+                calcSmbox: 'calc(100% - 40px)',
             },
             width: {
                 w27: '27%',
@@ -19,6 +20,7 @@ module.exports = {
             },
             margin: {
                 mb10px: '10.8px',
+                t40: '40% 0 0 0',
             },
             animation: {
                 spin3s: 'spin 3s linear infinite',

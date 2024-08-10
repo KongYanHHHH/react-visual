@@ -2,7 +2,7 @@ import { useEffect, useLayoutEffect, useRef } from 'react';
 
 import { useImmer } from 'use-immer';
 
-import type { LineSeriesOption } from 'echarts/charts';
+import type { BarSeriesOption } from 'echarts/charts';
 import type {
     TitleComponentOption,
     TooltipComponentOption,
@@ -15,7 +15,7 @@ import { type ComposeOption, type EChartsType } from 'echarts/core';
 import useFetchWrapper from '@/hooks/useFetchWrapper';
 
 type ECOption = ComposeOption<
-    | LineSeriesOption
+    | BarSeriesOption
     | TitleComponentOption
     | TooltipComponentOption
     | GridComponentOption
@@ -35,50 +35,67 @@ function Four({ echartsObj }: { echartsObj: EchartsType }) {
     const instance = useRef<EChartsType>();
 
     const [option, updateOption] = useImmer<ECOption>({
-        xAxis: {},
-        yAxis: { type: 'value', name: '%RH' },
+        xAxis: {
+            type: 'value',
+            splitLine: { lineStyle: { type: 'dotted' } },
+            axisLabel: {
+                formatter(value) {
+                    if (typeof value === 'number') {
+                        return value + 7 + '';
+                    } else {
+                        return value;
+                    }
+                },
+            },
+        },
+        yAxis: {},
         legend: {},
         series: [],
         title: {
-            text: '湿度',
+            text: '土壤PH',
         },
         tooltip: {
             trigger: 'axis',
+            valueFormatter: val => Number(val) + 7 + '',
         },
     });
 
     async function getData() {
-        const data = await fetchInstance.get(fetchInstance.apiUri.getTwo);
+        const data = await fetchInstance.get(fetchInstance.apiUri.getFour);
 
         const seriesData: any[] = [];
         const legendData: string[] = [];
-        const xAxisData: string[] = [];
+        const yAxisData: string[] = [];
 
         if (Array.isArray(data)) {
             data.forEach((item, idx) => {
                 legendData.push(item.name);
                 seriesData.push({
                     name: item.name,
-                    type: 'line',
-                    smooth: true,
+                    type: 'bar',
                     data: [],
                 });
 
                 for (const _d of item.data.reverse()) {
                     if (!idx) {
-                        xAxisData.push(_d.time);
+                        yAxisData.push(_d.time);
                     }
 
-                    seriesData[idx].data.push(_d.humidness);
+                    const _ph = (_d.ph - 7).toFixed(1);
+                    seriesData[idx].data.push(_ph);
                 }
             });
 
             updateOption(draft => {
-                draft.legend = { textStyle: legendTextStyle, data: legendData };
-                draft.xAxis = {
+                draft.legend = {
+                    textStyle: legendTextStyle,
+                    top: 'bottom',
+                    data: legendData,
+                };
+                draft.yAxis = {
                     type: 'category',
                     boundaryGap: true,
-                    data: xAxisData,
+                    data: yAxisData,
                 };
                 draft.series = seriesData;
             });
@@ -88,7 +105,7 @@ function Four({ echartsObj }: { echartsObj: EchartsType }) {
     useEffect(() => {
         let timer: NodeJS.Timer | undefined = setInterval(
             getData,
-            3 * 60 * 1000,
+            5 * 60 * 1000,
         );
 
         getData();

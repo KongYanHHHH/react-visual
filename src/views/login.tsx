@@ -8,10 +8,14 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '@/redux/userSlice';
 
+// import { SetGlobalStateFnContext } from '@/context/globalStateContest';
+
 export default function Login() {
     const navigate = useNavigate();
     // 解决createAsyncThunk类型推导的bug
     const dispatch = useDispatch<AppDispatch>();
+
+    // const setGlobalStateFn = useContext(SetGlobalStateFnContext)
 
     const isAuthenticated = useSelector((state: RootState) => state.user.token);
 
@@ -24,6 +28,7 @@ export default function Login() {
     const onFinish = (val: { account: string; cipher: string }) => {
         dispatch(login(val));
     };
+
     return (
         <div
             className="bg-no-repeat bg-center bg-cover h-screen w-full flex justify-center items-center"

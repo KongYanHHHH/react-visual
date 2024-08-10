@@ -34,16 +34,6 @@ export default function useAutoResize(ref: HTMLElement) {
         };
 
         setState({ width: clientWidth, height: clientHeight });
-
-        if (!domRef.current) {
-            console.warn(
-                'DataV: Failed to get dom node, component rendering may be abnormal!',
-            );
-        } else if (!clientWidth || !clientHeight) {
-            console.warn(
-                'DataV: Component width or height is 0px, rendering abnormality may occur!',
-            );
-        }
     }, []);
 
     useImperativeHandle(ref as unknown as Ref<unknown>, () => ({ setWH }), [

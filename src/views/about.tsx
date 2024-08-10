@@ -19,6 +19,9 @@ import Two from '@/components/chartBox/two';
 import Three from '@/components/chartBox/three';
 import Four from '@/components/chartBox/four';
 
+import Weather from '@/components/chartBox/weather';
+import SimulateMonitor from '@/components/chartBox/simulateMonitor';
+
 // 注册必须的组件
 echarts.use([
     TitleComponent,
@@ -43,10 +46,9 @@ export default function About() {
                 <Two echartsObj={echarts} />
                 <Three echartsObj={echarts} />
             </div>
-            <div className="w-2/5 h-h88 inline-block">
-                {' '}
-                <div className="h-1/3 w-full border"></div>
-                <div className="h-1/3 w-full border"></div>
+            <div className="w-2/5 h-h88 inline-block overflow-auto">
+                <SimulateMonitor />
+                <Weather />
             </div>
             <div className="w-w30 h-h88 inline-block overflow-auto">
                 <Four echartsObj={echarts} />
