@@ -47,7 +47,7 @@ function SimulateMonitor() {
                     setSelectedCamera(_prev =>
                         _prev.filter(_key => _key !== item.info.value),
                     );
-                    if (navigator.mediaDevices) {
+                    if (!navigator.mediaDevices) {
                         Modal.info({
                             title: '提示',
                             content: (
@@ -62,6 +62,10 @@ function SimulateMonitor() {
                                     保存重启即可
                                 </div>
                             ),
+                            getContainer: () =>
+                                document.getElementById(
+                                    'visual',
+                                ) as HTMLElement,
                         });
                     }
                 }

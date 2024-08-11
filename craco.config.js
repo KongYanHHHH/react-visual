@@ -1,16 +1,18 @@
 const path = require('path');
 
+const packageName = require('./package.json').name;
+
 module.exports = {
     webpack: {
         configure: (webpackConfig, { env, paths }) => {
             // 设置输出库名称和UMD目标
-            webpackConfig.output.library = `${
-                require('./package.json').name
-            }-[name]`;
-            webpackConfig.output.libraryTarget = 'umd';
-            webpackConfig.output.chunkLoadingGlobal = `webpackJsonp_${
-                require('./package.json').name
-            }`;
+            // webpackConfig.output.library = `${packageName}-[name]`;
+            // webpackConfig.output.libraryTarget = 'umd';
+            webpackConfig.output.library = {
+                name: `${packageName}-[name]`,
+                type: 'umd',
+            };
+            webpackConfig.output.chunkLoadingGlobal = `webpackJsonp_${packageName}`;
             webpackConfig.output.globalObject = 'window';
 
             // 添加别名
@@ -19,27 +21,29 @@ module.exports = {
                 '@': path.resolve(__dirname, 'src'),
                 reduxDir: path.resolve(__dirname, 'src/redux'),
             };
-
-            // 打包配置
-            // webpackConfig.optimization = {
-            //     ...webpackConfig.optimization,
-            //     runtimeChunk: 'single',
-            //     moduleIds: 'deterministic',
-            //     splitChunks: {
-            //         chunks: 'all',
-            //         minChunks: 2,
-            //         cacheGroups: {
-            //             vendor: {
-            //                 test: /[\\/]node_modules[\\/]/,
-            //                 name: 'vendors',
-            //                 chunks: 'all',
-            //             },
-            //         },
-            //     },
-            // };
-
-            // webpackConfig.devtool = 'source-map';
             
+            if (env === 'production') {
+                // 打包配置
+                webpackConfig.optimization = {
+                    ...webpackConfig.optimization,
+                    runtimeChunk: 'single',
+                    moduleIds: 'deterministic',
+                    splitChunks: {
+                        chunks: 'all',
+                        minChunks: 2,
+                        cacheGroups: {
+                            vendor: {
+                                test: /[\\/]node_modules[\\/]/,
+                                name: 'vendors',
+                                chunks: 'all',
+                            },
+                        },
+                    },
+                };
+
+                webpackConfig.devtool = 'source-map';
+            }
+
             return webpackConfig;
         },
     },

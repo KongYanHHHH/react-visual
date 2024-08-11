@@ -74,7 +74,7 @@ function Weather() {
                             {weather.temperature + '°'}
                         </span>
                     </div>
-                    <div className='flex flex-col justify-center items-center mr-4'>
+                    <div className="flex flex-col justify-center items-center mr-4">
                         <span>{weather.weather + ''}</span>
                         <span>{`${weather.windDirection}风${
                             typeof weather.windPower === 'string'

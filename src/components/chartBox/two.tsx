@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { useImmer } from 'use-immer';
 
@@ -99,7 +99,7 @@ function Two({ echartsObj }: { echartsObj: EchartsType }) {
         };
     }, []);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         if (!instance.current) {
             instance.current = echartsObj.init(lineRef.current, {
                 universalTransition: true,
@@ -107,7 +107,15 @@ function Two({ echartsObj }: { echartsObj: EchartsType }) {
         } else {
             instance.current.resize();
         }
+
         instance.current.setOption(option);
+
+        return () => {
+            if (instance.current) {
+                instance.current.dispose();
+                instance.current = undefined;
+            }
+        };
     }, [option]);
 
     return (
