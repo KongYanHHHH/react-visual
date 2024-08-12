@@ -5,7 +5,7 @@ const apiUri = {
     getThree: 'https://apifoxmock.com/m1/4936411-4593871-default/apifox/geto2co2',
     getFour: 'https://apifoxmock.com/m1/4936411-4593871-default/apifox/getph',
     // csrf
-    hahaha: '/api/hahaha'
+    hahaha: '/api/egg/hahaha'
 };
 
 export default apiUri;
