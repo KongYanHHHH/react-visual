@@ -18,6 +18,8 @@ import One from '@/components/chartBox/one';
 import Two from '@/components/chartBox/two';
 import Three from '@/components/chartBox/three';
 import Four from '@/components/chartBox/four';
+import Five from '@/components/chartBox/five';
+import Six from '@/components/chartBox/six';
 
 import Weather from '@/components/chartBox/weather';
 import SimulateMonitor from '@/components/chartBox/simulateMonitor';
@@ -52,8 +54,8 @@ export default function About() {
             </div>
             <div className="w-w30 h-h88 inline-block overflow-auto">
                 <Four echartsObj={echarts} />
-                <div className="h-1/3 w-full border"></div>
-                <div className="h-1/3 w-full border"></div>
+                <Five />
+                <Six />
             </div>
         </FullScreenContainer>
     );

@@ -102,7 +102,7 @@ function Weather() {
     }
 
     return (
-        <div className="h-1/3 w-full p-2.5 text-white flex justify-center items-center">
+        <div className="h-1/5 w-full p-2.5 text-white flex justify-center items-center">
             {weather ? generatedLayout() : <p>Loading...</p>}
         </div>
     );

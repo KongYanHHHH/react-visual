@@ -6,6 +6,8 @@ import { acceptUserInfoByMainApp } from 'reduxDir/userSlice';
 
 import { SetGlobalStateFnContext } from '@/context/globalStateContest';
 import { assetpSetGlobalStateFn } from 'reduxDir/appCommunicationSlice';
+import getCookie from './uilts/getCookie';
+import apiUri from './uilts/api_uri';
 
 function App({
     userInfo,
@@ -23,6 +25,16 @@ function App({
 
         dispatch(assetpSetGlobalStateFn(setGlobalState));
     }, [dispatch, setGlobalState, userInfo]);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            clearTimeout(timer);
+
+            if (!getCookie('csrfToken')) {
+                fetch(apiUri.hahaha);
+            }
+        }, 500);
+    }, []);
 
     return (
         // <SetGlobalStateFnContext.Provider value={setGlobalState}>

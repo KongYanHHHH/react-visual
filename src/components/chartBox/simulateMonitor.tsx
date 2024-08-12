@@ -131,7 +131,7 @@ function SimulateMonitor() {
 
     return (
         <div
-            className="w-full h-2/3 flex flex-col justify-between"
+            className="w-full h-4/5 flex flex-col justify-between"
             id="simulatemonitor"
         >
             <Select

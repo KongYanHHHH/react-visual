@@ -9,6 +9,7 @@ module.exports = {
                 calcBorder: 'calc(100% - 6px)',
                 turnBorder: '110%',
                 calcSmbox: 'calc(100% - 40px)',
+                '5/12': '41.666667%;',
             },
             width: {
                 w27: '27%',
