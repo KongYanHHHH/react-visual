@@ -37,7 +37,7 @@ export default function Login() {
             <Form
                 name="normal_login"
                 className="w-96"
-                initialValues={{ remember: true }}
+                initialValues={{ account: 'xx', cipher: 'xx' }}
                 onFinish={onFinish}
             >
                 <Form.Item
